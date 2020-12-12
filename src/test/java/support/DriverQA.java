@@ -159,6 +159,12 @@ public class DriverQA {
         dropdown.selectByVisibleText(parText);
     }
 
+    public void selecionaRadio(String parName, String... parType) {
+        final WebElement element = findElem(parName, parType);
+        element.click();
+        element.isSelected();
+    }
+
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
