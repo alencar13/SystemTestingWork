@@ -1,2 +1,6 @@
 # SystemTesting
-Testes Selenium Web Driver ;
+
+Integrantes:
+
+    Lucas Alencar Lino da Silva
+    Janes Isidoro
