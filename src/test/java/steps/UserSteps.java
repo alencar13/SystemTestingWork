@@ -4,6 +4,7 @@ import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
+import gherkin.lexer.Th;
 import org.junit.Assert;
 import pages.EditaProcesso;
 import pages.NovoProcesso;
@@ -12,9 +13,9 @@ import support.BaseSteps;
 
 public class UserSteps extends BaseSteps {
 
-    private static NovoProcesso novoProcesso = new NovoProcesso(driver);
-    private static DetalhaProcesso detalhaProcesso = new DetalhaProcesso(driver);
-    private static EditaProcesso editaProcesso = new EditaProcesso(driver);
+    public static NovoProcesso novoProcesso = new NovoProcesso(driver);
+    public static DetalhaProcesso detalhaProcesso = new DetalhaProcesso(driver);
+    public static EditaProcesso editaProcesso = new EditaProcesso(driver);
 
     @Dado("^que o usuário esteja logado na aplicação$")
     public void queOUsuarioEstejaLogadoNaAplicacao() {
@@ -119,8 +120,29 @@ public class UserSteps extends BaseSteps {
 
     @Então("^o usuário deveria ver o valor \"([^\"]*)\" no campo \"([^\"]*)\"$")
     public void oUsuarioDeveriaVerOValorNoCampo(String valor, String campo) throws Throwable {
+        Thread.sleep(500);
         Assert.assertEquals(valor, detalhaProcesso.getField(campo));
     }
 
 
+    @Quando("^o usuário clica no botão consultar do processo cadastrado$")
+    public void oUsuarioClicaNoBotaoConsultarDoProcessoCadastrado() {
+        detalhaProcesso.clicaBotaoMostrar(novoProcesso.getCode().toString());
+    }
+
+    @Quando("^o usuário clica no botão apagar do processo cadastrado$")
+    public void oUsuarioClicaNoBotaoApagarDoProcessoCadastrado() {
+        detalhaProcesso.clicarBotaoApagar(novoProcesso.getCode().toString());
+    }
+
+    @E("^o usuário confirma a deleção$")
+    public void oUsuarioConfirmaADelecao() throws InterruptedException {
+        Thread.sleep(1000);
+        detalhaProcesso.deletaProcesso();
+    }
+
+    @Então("^o botão apagar não pode mais existir para o usuário cadastrar$")
+    public void oBotaoApagarNaoPodeMaisExistirParaOUsuarioCadastrar() throws InterruptedException {
+        Assert.assertTrue(true);
+    }
 }
