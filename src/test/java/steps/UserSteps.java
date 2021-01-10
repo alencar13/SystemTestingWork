@@ -1,96 +1,126 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 import org.junit.Assert;
-import pages.CRUDUsuarios;
+import pages.EditaProcesso;
+import pages.NovoProcesso;
+import pages.DetalhaProcesso;
 import support.BaseSteps;
 
 public class UserSteps extends BaseSteps {
 
-    private static CRUDUsuarios crudUsuarios = new CRUDUsuarios(driver);
+    private static NovoProcesso novoProcesso = new NovoProcesso(driver);
+    private static DetalhaProcesso detalhaProcesso = new DetalhaProcesso(driver);
+    private static EditaProcesso editaProcesso = new EditaProcesso(driver);
 
     @Dado("^que o usuário esteja logado na aplicação$")
     public void queOUsuarioEstejaLogadoNaAplicacao() {
-        crudUsuarios.abrirPagina();
+        novoProcesso.abrirPagina();
     }
 
-    @Dado("^que o usuário clique no botão Novo Processo$")
+    @E("^que o usuário clique no botão Novo Processo$")
     public void queOUsuarioCliqueNoBotaoNovoProcesso() {
-        crudUsuarios.clicarBotaoNovoProcesso();
+        novoProcesso.clicarBotaoNovoProcesso();
     }
 
-    @Quando("^clicar no botão Salvar$")
-    public void clicar_no_botao_Salvar() throws Throwable {
-        crudUsuarios.clicarBotaoSalvar();
+    @Quando("^o usuário clicar no botão salvar$")
+    public void o_usuario_clicar_no_botao_salvar() throws Throwable {
+        novoProcesso.clicarBotaoSalvarNovoProcesso();
+        novoProcesso.setCode(detalhaProcesso.getCode().toString());
     }
 
     @Então("^deve mostrar a mensagem \"([^\"]*)\"$")
     public void deve_mostrar_a_mensagem(String value) throws Throwable {
-        crudUsuarios.validaMensagemSucesso(value);
+        detalhaProcesso.validaMensagemSucesso(value);
     }
 
     @E("^o usuário informar o campo Vara igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoVaraComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_vara");
+        novoProcesso.preencherCampo(value, "#processo_vara","css");
     }
 
     @E("^o usuário informar o campo Numero Processo igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoNumeroProcessoComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_numero_processo");
+        novoProcesso.preencherCampo(value, "processo_numero_processo");
     }
 
     @E("^o usuário informar o campo Natureza igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoNaturezaComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_natureza");
+        novoProcesso.preencherCampo(value,"processo_natureza");
     }
 
     @E("^o usuário informar o campo Partes igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoPartesComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_partes");
+        novoProcesso.preencherCampo(value, "processo_partes");
     }
 
     @E("^o usuário informar o campo Urgente igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoUrgenteComIgualA(String value) throws Throwable {
-        crudUsuarios.selecionarOpcaoCombo(value, "processo_urgente");
+        novoProcesso.selecionarOpcaoCombo(value, "processo_urgente");
     }
 
     @E("^o usuário informar o campo Arbitramento igual a Sim$")
     public void oUsuárioInformarOCampoArbitramentoIgualASim() {
-        crudUsuarios.selecionaOpcaoSim();
+        novoProcesso.selecionaOpcaoSim();
     }
 
     @E("^o usuário informar o campo Assistente social igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoAssistenteSocialComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_assistente_social");
+        novoProcesso.preencherCampo(value, "processo_assistente_social");
     }
 
     @E("^o usuário informar o campo Data entrada igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoDataEntradaComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_data_entrada");
+        novoProcesso.preencherCampo(value, "processo_data_entrada");
     }
 
     @E("^o usuário informar o campo Data saída igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoDataSaídaComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_data_saida");
+        novoProcesso.preencherCampo(value, "processo_data_saida");
     }
 
     @E("^o usuário informar o campo Data agendamento igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoDataAgendamentoComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_data_agendamento");
+        novoProcesso.preencherCampo(value, "processo_data_agendamento");
     }
 
     @E("^o usuário informar o campo Status igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoStatusComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_status");
+        novoProcesso.preencherCampo(value, "processo_status");
     }
 
     @E("^o usuário informar o campo Observação igual a \"([^\"]*)\"$")
     public void oUsuárioInformarOCampoObservaçãoComIgualA(String value) throws Throwable {
-        crudUsuarios.preencherCampo(value, "processo_observacao");
+        novoProcesso.preencherCampo(value, "processo_observacao");
     }
+
+    @E("^o usuário clica no botão voltar$")
+    public void oUsuarioClicaNoBotaoVoltar() {
+        detalhaProcesso.clicarBotaoVoltar();
+    }
+
+    @E("^o usuário clica no botão editar do processo cadastrado$")
+    public void oUsuarioClicaNoBotaoEditarDoProcessoCadastrado() {
+        detalhaProcesso.clicarUsuarioEditar(novoProcesso.getCode().toString());
+    }
+
+    @E("^o usuário preencher o campo \"([^\"]*)\" com o valor \"([^\"]*)\" na tela de edição$")
+    public void oUsuárioPreencherOCampoComOValorNaTelaDeEdição(String campo, String valor) throws Throwable {
+        editaProcesso.preencherCampo(campo, valor);
+    }
+
+    @Quando("^clicar no botão Salvar na tela de edição$")
+    public void clicarNoBotaoSalvarNaTelaDeEdicao() {
+        editaProcesso.clicarBotaoSalvar();
+    }
+
+    @Então("^o usuário deveria ver o valor \"([^\"]*)\" no campo \"([^\"]*)\"$")
+    public void oUsuarioDeveriaVerOValorNoCampo(String valor, String campo) throws Throwable {
+        Assert.assertEquals(valor, detalhaProcesso.getField(campo));
+    }
+
 
 }

@@ -1,12 +1,10 @@
 #language: pt
-Funcionalidade: CRUD Usuário
+  @CRUDUsuarios
+Funcionalidade: CRUD Processo
 
   Contexto:
     Dado que o usuário esteja logado na aplicação
-
-  @CriarUsuario
-  Cenario: Criar um usuário
-    Dado que o usuário clique no botão Novo Processo
+    E que o usuário clique no botão Novo Processo
     E o usuário informar o campo Vara igual a "Vara Criminal 157"
     E o usuário informar o campo Numero Processo igual a "1533"
     E o usuário informar o campo Natureza igual a "Criminal"
@@ -19,5 +17,17 @@ Funcionalidade: CRUD Usuário
     E o usuário informar o campo Data agendamento igual a "13/09/2021"
     E o usuário informar o campo Status igual a "Encaminhado"
     E o usuário informar o campo Observação igual a "Aguardando solução do processo."
-    Quando clicar no botão Salvar
+
+  @CriaProcesso
+  Cenario: Criar um processo
+    Quando o usuário clicar no botão salvar
     Então deve mostrar a mensagem "Processo foi criado com sucesso."
+
+  @EditarUmUsuario
+  Cenario: Editar um novo processo
+    E o usuário clicar no botão salvar
+    E o usuário clica no botão voltar
+    E o usuário clica no botão editar do processo cadastrado
+    E o usuário preencher o campo "processo_natureza" com o valor "Natureza alterada" na tela de edição
+    Quando clicar no botão Salvar na tela de edição
+    Então o usuário deveria ver o valor "Natureza alterada" no campo "natureza"

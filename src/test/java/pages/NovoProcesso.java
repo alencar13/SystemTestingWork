@@ -6,9 +6,11 @@ import support.DriverQA;
 
 import static org.junit.Assert.assertEquals;
 
-public class CRUDUsuarios extends BasePage {
+public class NovoProcesso extends BasePage {
 
-    public CRUDUsuarios(DriverQA stepDriver) {
+    private String userCode;
+
+    public NovoProcesso(DriverQA stepDriver) {
         super(stepDriver);
     }
 
@@ -18,15 +20,17 @@ public class CRUDUsuarios extends BasePage {
     }
 
     public void clicarBotaoNovoProcesso(){
+        driver.waitElementToBeClickable("btn-novo");
         driver.click("btn-novo");
     }
 
-    public void clicarBotaoSalvar(){
+    public void clicarBotaoSalvarNovoProcesso(){
+        driver.waitElement("btn-save");
         driver.click("btn-save");
     }
 
-    public void preencherCampo(String value, String parName){
-        driver.sendKeys(value,parName);
+    public void preencherCampo(String value, String parName, String... parType){
+        driver.sendKeys(value, parName, parType);
     }
 
     public void selecionarOpcaoCombo(String value, String parName){
@@ -37,10 +41,15 @@ public class CRUDUsuarios extends BasePage {
         driver.selecionaRadio("processo_arbitramento_s");
     }
 
-    public void validaMensagemSucesso(String value) {
-        String resultadoEsperado = value;
-        String resultadoObtido = driver.getText("notice");
+    public void setCode(String code) {
+        userCode = code;
+    }
 
-        assertEquals(resultadoEsperado, resultadoObtido);
+    public String getUserCode(){
+        return userCode;
+    }
+
+    public Object getCode() {
+        return driver.getText("codigo");
     }
 }
